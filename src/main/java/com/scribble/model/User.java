@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Entity
@@ -24,6 +25,11 @@ public class User {
     private LocalDateTime createdAt;
     @Column(nullable = false)
     private LocalDateTime updatedAt;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<RoomPlayer> roomPlayers;
+
+    @OneToMany(mappedBy = "drawer", cascade = CascadeType.ALL)
+    private List<Round> roundsDrawn;
 
     @PrePersist
     protected void onCreate(){
