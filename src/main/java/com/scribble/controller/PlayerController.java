@@ -9,4 +9,8 @@ public class PlayerController {
     public String player(){
         return "Player";
     }
+    @RequestMapping("/game")
+    public String game(){
+        return "Game";
+    }
 }
