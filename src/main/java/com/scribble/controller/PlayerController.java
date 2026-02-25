@@ -13,4 +13,8 @@ public class PlayerController {
     public String game(){
         return "Game";
     }
+    @RequestMapping("/room")
+    public String room(){
+        return "Room";
+    }
 }
