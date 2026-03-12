@@ -29,4 +29,6 @@ public class GameRoomManager {
     public void removeRemovedRooms(){
         gameRooms.entrySet().removeIf(entry -> entry.getValue().getPlayers().isEmpty());
     }
+    public void roomStatusUpdate(String roomCode, boolean status){
+    }
 }
