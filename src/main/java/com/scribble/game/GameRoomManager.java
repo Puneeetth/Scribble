@@ -31,4 +31,7 @@ public class GameRoomManager {
     }
     public void roomStatusUpdate(String roomCode, boolean status){
     }
+    public void playerStatusUpdate(String roomCod){
+
+    }
 }
