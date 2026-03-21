@@ -64,9 +64,7 @@ public class RoomService {
 
         return buildRoomResponse(room);
     }
-public void room1(){
 
-}
 
     private RoomResponse buildRoomResponse(Room room) {
 
