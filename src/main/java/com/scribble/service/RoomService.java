@@ -27,11 +27,20 @@ public class RoomService {
     private final RoomPlayerRepository roomPlayerRepository;
     private final GameRoomManager gameRoomManager;
 
+    //Initialising the room for the players to join
     public RoomResponse createRoom(CreateRoomRequest request){
         String roomCode = generateRoomCode();
-        User user = new User();
-        user.setUserName(request.getUserName());
-        user = userRepository.save(user);
+//        User user = new User();
+//        user.setUserName(request.getUserName());
+//        user.setTotalScore(0);
+//        user = userRepository.save(user);
+        User user = userRepository.findByUserName(request.getUserName())
+                .orElseGet(() -> {
+                    User newUser = new User();
+                    newUser.setUserName(request.getUserName());
+                    newUser.setTotalScore(0);
+                    return userRepository.save(newUser);
+                });
 
         Room room = new Room();
         room.setRoomCode(roomCode);
@@ -47,13 +56,22 @@ public class RoomService {
 
        return buildRoomResponse(room);
     }
+    //logic to join the room
     public RoomResponse joinRoom(JoinRoomRequest request){
         Room room = roomRepository.findByRoomCode(request.getRoomCode())
                 .orElseThrow(() -> new RoomNotFoundException(request.getRoomCode()));
 
-        User user = new User();
-        user.setUserName(request.getUserName());
-        user = userRepository.save(user);
+//        User user = new User();
+//        user.setUserName(request.getUserName());
+//        user.setTotalScore(0);
+//        user = userRepository.save(user);
+        User user = userRepository.findByUserName(request.getUserName())
+                .orElseGet(() -> {
+                    User newUser = new User();
+                    newUser.setUserName(request.getUserName());
+                    newUser.setTotalScore(0);
+                    return userRepository.save(newUser);
+                });
 
         RoomPlayer roomPlayer = new RoomPlayer();
         roomPlayer.setRoom(room);
@@ -65,7 +83,7 @@ public class RoomService {
         return buildRoomResponse(room);
     }
 
-
+//Room Response after players join the room
     private RoomResponse buildRoomResponse(Room room) {
 
         List<PlayerResponse> players = roomPlayerRepository.findByRoomId(room.getId())
@@ -83,7 +101,7 @@ public class RoomService {
         );
     }
 
-
+//Generate random room code with String of Characters
     private String generateRoomCode(){
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 

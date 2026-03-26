@@ -20,7 +20,7 @@ public class User {
     @Column(nullable = false,unique = true,length = 50)
     private String userName;
     @Column(nullable = false)
-    private String totalScore;
+    private Integer totalScore = 0;
     @Column(nullable = false,updatable = false)
     private LocalDateTime createdAt;
     @Column(nullable = false)
